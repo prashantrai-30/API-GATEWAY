@@ -6,7 +6,9 @@ const userRouter = require('./user-routes');
 
 const { InfoController } = require('../../controllers');
 
-router.get('/info',InfoController.info);
+const {UserMiddleware} = require('../../middleware')
+
+router.get('/info',UserMiddleware.checkAuth,InfoController.info);
 
 router.use('/user',userRouter);
 
