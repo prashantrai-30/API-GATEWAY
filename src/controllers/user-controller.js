@@ -1,6 +1,6 @@
 const {StatusCodes} = require('http-status-codes');
 
-const {userService} = require('../services');
+const {UserService} = require('../services');
 
 const {SuccessResponse,ErrorResponse} = require('../utils/common');
 
@@ -11,7 +11,7 @@ const {SuccessResponse,ErrorResponse} = require('../utils/common');
 
 async function signup(req,res) {
     try {
-        const user = await userService.create({
+        const user = await UserService.create({
             email:req.body.email,
             password:req.body.password
         });
@@ -20,6 +20,7 @@ async function signup(req,res) {
                 .status(StatusCodes.CREATED)
                 .json(SuccessResponse);
     } catch (error) {
+        console.log(error);
         ErrorResponse.error = error;
         return res
                 .status(error.statusCode)

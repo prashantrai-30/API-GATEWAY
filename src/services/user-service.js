@@ -9,9 +9,10 @@ async function create(data) {
         const user = await userRepo.create(data);
         return user;
     } catch (error) {
+        console.log(error.name);
         if(error.name == 'SequelizeValidationError' || error.name == 'SequelizeUniqueConstraintError') {
             let explanation = [];
-            error.errors.foreach((err) => {
+            error.errors.forEach((err) => {
                 explanation.push(err.message);
             });
             throw new AppError(explanation,StatusCodes.BAD_REQUEST);
